@@ -32,10 +32,12 @@ public class RegisterController {
     @FXML
     public void handleRegisterAction() {
         try {
-            if (usernameField.getText() == "" || passwordField.getText() == "" || (String) role.getValue() == "" || fullNameField.getText() == "" || phoneNumberField.getText() == "") {
+            if (usernameField.getText() == "" || passwordField.getText() == "" || (String) role.getValue() == null || fullNameField.getText() == "" || phoneNumberField.getText() == "") {
                 registrationMessage.setText("Please fill in all the fields!");
-            } else {
-                UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue(), fullNameField.getText(), phoneNumberField.getText());
+            } else if (UserService.validatePhoneNumber(phoneNumberField.getText()) == false) {
+                registrationMessage.setText("Invalid phone number!");
+            }else {
+                UserService.addUser(usernameField.getText(), UserService.encodePassword(passwordField.getText()), (String) role.getValue(), fullNameField.getText(), phoneNumberField.getText());
                 registrationMessage.setText("Account created successfully!");
             }
         } catch (SQLException e) {
