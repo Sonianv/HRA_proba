@@ -1,3 +1,4 @@
+org\loose\fis\sre\hotelreservationapplication\controllers\LoginController.class
 org\loose\fis\sre\hotelreservationapplication\database\DBConnection.class
 module-info.class
 org\loose\fis\sre\hotelreservationapplication\services\UserService.class
