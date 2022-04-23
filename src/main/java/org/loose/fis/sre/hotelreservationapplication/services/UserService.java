@@ -15,13 +15,13 @@ public class UserService {
     public static void addUser(String username, String password, String role, String fullName, String phoneNumber) throws SQLException {
 
         Statement statement = DBConnection.connection.createStatement();
-        statement.executeUpdate("INSERT INTO user (username, password, role, fullName, phoneNumber) VALUES ('" + username + "', '" + password + "', '" + role + "', '" + fullName + "', '" + phoneNumber + "');");
+        statement.executeUpdate("INSERT INTO users (username, password, role, fullName, phoneNumber) VALUES ('" + username + "', '" + password + "', '" + role + "', '" + fullName + "', '" + phoneNumber + "');");
     }
 
     public static boolean searchUser(String username, String password, String role) throws SQLException {
 
         Statement statement = DBConnection.connection.createStatement();
-        ResultSet user = statement.executeQuery("SELECT * from user where  username ='" + username + "' and password = '" + password + "' and role = '" + role + "';");
+        ResultSet user = statement.executeQuery("SELECT * from users where  username ='" + username + "' and password = '" + password + "' and role = '" + role + "';");
         return user.next();
     }
 
