@@ -42,7 +42,6 @@ public class RegisterController {
             }
         } catch (SQLException e) {
             registrationMessage.setText("Username already exists!");
-            System.out.println(e);
         }
     }
 }

@@ -1,6 +1,8 @@
 package org.loose.fis.sre.hotelreservationapplication.services;
 
 import org.loose.fis.sre.hotelreservationapplication.database.DBConnection;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +16,13 @@ public class UserService {
 
         Statement statement = DBConnection.connection.createStatement();
         statement.executeUpdate("INSERT INTO user (username, password, role, fullName, phoneNumber) VALUES ('" + username + "', '" + password + "', '" + role + "', '" + fullName + "', '" + phoneNumber + "');");
+    }
+
+    public static boolean searchUser(String username, String password, String role) throws SQLException {
+
+        Statement statement = DBConnection.connection.createStatement();
+        ResultSet user = statement.executeQuery("SELECT * from user where  username ='" + username + "' and password = '" + password + "' and role = '" + role + "';");
+        return user.next();
     }
 
     public static String encodePassword (String password) {
