@@ -35,7 +35,7 @@ public class LoginController {
             } else if (UserService.searchUser(usernameField.getText(), UserService.encodePassword(passwordField.getText()), (String) role.getValue()) == true){
                 loginMessage.setText("Logged in as: " + (String)role.getValue()); //switch scene-later...
             } else {
-                    loginMessage.setText("Invalid username or password!");
+                loginMessage.setText("Invalid username or password!");
             }
         } catch (SQLException e) {
             loginMessage.setText("Something went wrong! Please try again.");

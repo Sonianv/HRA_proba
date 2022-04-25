@@ -2,6 +2,7 @@ package org.loose.fis.sre.hotelreservationapplication.services;
 
 import org.loose.fis.sre.hotelreservationapplication.database.DBConnection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,14 +15,24 @@ public class UserService {
 
     public static void addUser(String username, String password, String role, String fullName, String phoneNumber) throws SQLException {
 
-        Statement statement = DBConnection.connection.createStatement();
-        statement.executeUpdate("INSERT INTO users (username, password, role, fullName, phoneNumber) VALUES ('" + username + "', '" + password + "', '" + role + "', '" + fullName + "', '" + phoneNumber + "');");
+        PreparedStatement statement;
+        statement = DBConnection.connection.prepareStatement("INSERT INTO users (username, password, role, fullName, phoneNumber) VALUES (?, ?, ?, ?, ?)");
+        statement.setString(1, username);
+        statement.setString(2, password);
+        statement.setString(3, role);
+        statement.setString(4, fullName);
+        statement.setString(5, phoneNumber);
+        statement.executeUpdate();
     }
 
     public static boolean searchUser(String username, String password, String role) throws SQLException {
 
-        Statement statement = DBConnection.connection.createStatement();
-        ResultSet user = statement.executeQuery("SELECT * from users where  username ='" + username + "' and password = '" + password + "' and role = '" + role + "';");
+        PreparedStatement statement;
+        statement = DBConnection.connection.prepareStatement("SELECT * from users where  username = ? and password = ? and role = ? ");
+        statement.setString(1, username);
+        statement.setString(2, password);
+        statement.setString(3, role);
+        ResultSet user = statement.executeQuery();
         return user.next();
     }
 
